@@ -5,15 +5,15 @@
     <div class="container">
 
     <div class="table-responsive text-nowrap">
-    <h2>Order Summary</h2>
+    <h2>订单详情</h2>
     <table class="table">
         <thead>
         <tr>
-            <th scope="col">#</th>
-            <th scope="col">Item title</th>
-            <th scope="col">Price</th>
-            <th scope="col">Quantity</th>
-            <th scope="col">Total Item Price</th>
+            <th scope="col">编号</th>
+            <th scope="col">物品</th>
+            <th scope="col">价格</th>
+            <th scope="col">数量</th>
+            <th scope="col">物品总价</th>
         </tr>
         </thead>
         <tbody>
@@ -41,11 +41,11 @@
         </tr>
         {% empty %}
         <tr>
-            <td colspan='5'>Your cart is empty</td>
+            <td colspan='5'>您的购物车是空的</td>
         </tr>
         <tr>
             <td colspan="5">
-            <a class='btn btn-primary float-right' href='/'>Continue shopping</a>
+            <a class='btn btn-primary float-right' href='/'>继续购物</a>
             </td>
         </tr>
         {% endfor %}
@@ -57,13 +57,13 @@
         {% endif %}
         {% if object.get_total %}
         <tr>
-            <td colspan="4"><b>Order Total</b></td>
+            <td colspan="4"><b>订单总价</b></td>
             <td><b>${{ object.get_total }}</b></td>
         </tr>
         <tr>
             <td colspan="5">
             <a class='btn btn-warning float-right ml-2' href='/checkout/'>Proceed to checkout</a>
-            <a class='btn btn-primary float-right' href='/'>Continue shopping</a>
+            <a class='btn btn-primary float-right' href='/'>继续购物</a>
             </td>
         </tr>
         {% endif %}

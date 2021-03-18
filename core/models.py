@@ -7,9 +7,15 @@ from django_countries.fields import CountryField
 
 
 CATEGORY_CHOICES = (
-    ('S', 'Shirt'),
-    ('SW', 'Sport wear'),
-    ('OW', 'Outwear')
+    ('A', '方便速食'),
+    ('B', '火锅料理'),
+    ('C', '生鲜蛋面'),
+    ('D', '休闲零食'),
+    ('E', '五谷干货'),
+    ('F', '鲜香调味'),
+    ('G', '时令果蔬'),
+    ('H', '冰冻食品'),
+    ('I', '其他')
 )
 
 LABEL_CHOICES = (
