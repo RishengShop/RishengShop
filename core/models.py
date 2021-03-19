@@ -6,6 +6,7 @@ from django.shortcuts import reverse
 from django_countries.fields import CountryField
 
 
+<<<<<<< HEAD
 # CATEGORY_CHOICES = (
 #     ('A', '方便速食'),
 #     ('B', '火锅料理'),
@@ -17,6 +18,19 @@ from django_countries.fields import CountryField
 #     ('H', '冰冻食品'),
 #     ('I', '其他')
 # )
+=======
+CATEGORY_CHOICES = (
+    ('A', '方便速食'),
+    ('B', '火锅料理'),
+    ('C', '生鲜蛋面'),
+    ('D', '休闲零食'),
+    ('E', '五谷干货'),
+    ('F', '鲜香调味'),
+    ('G', '时令果蔬'),
+    ('H', '冰冻食品'),
+    ('I', '其他')
+)
+>>>>>>> parent of cb490df (Merge pull request #1 from RishengShop/categories)
 
 LABEL_CHOICES = (
     ('P', 'primary'),
