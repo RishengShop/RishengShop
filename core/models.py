@@ -6,19 +6,6 @@ from django.shortcuts import reverse
 from django_countries.fields import CountryField
 
 
-<<<<<<< HEAD
-# CATEGORY_CHOICES = (
-#     ('A', '方便速食'),
-#     ('B', '火锅料理'),
-#     ('C', '生鲜蛋面'),
-#     ('D', '休闲零食'),
-#     ('E', '五谷干货'),
-#     ('F', '鲜香调味'),
-#     ('G', '时令果蔬'),
-#     ('H', '冰冻食品'),
-#     ('I', '其他')
-# )
-=======
 CATEGORY_CHOICES = (
     ('A', '方便速食'),
     ('B', '火锅料理'),
@@ -30,7 +17,24 @@ CATEGORY_CHOICES = (
     ('H', '冰冻食品'),
     ('I', '其他')
 )
->>>>>>> parent of cb490df (Merge pull request #1 from RishengShop/categories)
+
+
+class Category(models.Model):
+    name=models.CharField(max_length=50)
+
+    
+
+    class Meta:
+        verbose_name = ("Category")
+        verbose_name_plural = ("Categories")
+
+    def __str__(self):
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("Category_detail", kwargs={"pk": self.pk})
+
+
 
 LABEL_CHOICES = (
     ('P', 'primary'),
@@ -58,11 +62,12 @@ class Item(models.Model):
     title = models.CharField(max_length=100)
     price = models.FloatField()
     discount_price = models.FloatField(blank=True, null=True)
-    category = models.CharField(choices=CATEGORY_CHOICES, max_length=2)
+    category = models.ForeignKey(Category, verbose_name='categories', on_delete=models.CASCADE)
     label = models.CharField(choices=LABEL_CHOICES, max_length=1)
     slug = models.SlugField()
     description = models.TextField()
     image = models.ImageField()
+    itemid=models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
