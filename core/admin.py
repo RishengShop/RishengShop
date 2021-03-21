@@ -64,4 +64,7 @@ admin.site.register(Refund)
 admin.site.register(Address, AddressAdmin)
 admin.site.register(UserProfile)
 admin.site.register(Category)
+<<<<<<< HEAD
 
+=======
+>>>>>>> parent of 5b0a6e5 (Revert "Revert "Merge pull request #4 from RishengShop/master"")
