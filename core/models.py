@@ -33,14 +33,12 @@ CATEGORY_CHOICES = (
     ('H', '冰冻食品'),
     ('I', '其他')
 )
-# <<<<<<< HEAD
-# >>>>>>> parent of cb490df (Merge pull request #1 from RishengShop/categories)
-# =======
 
 
 
 
-# >>>>>>> parent of 5b0a6e5 (Revert "Revert "Merge pull request #4 from RishengShop/master"")
+
+
 
 LABEL_CHOICES = (
     ('P', 'primary'),
