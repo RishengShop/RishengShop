@@ -6,7 +6,8 @@ from django.shortcuts import reverse
 from django_countries.fields import CountryField
 
 
-<<<<<<< HEAD
+# <<<<<<< HEAD
+# <<<<<<< HEAD
 # CATEGORY_CHOICES = (
 #     ('A', '方便速食'),
 #     ('B', '火锅料理'),
@@ -18,7 +19,9 @@ from django_countries.fields import CountryField
 #     ('H', '冰冻食品'),
 #     ('I', '其他')
 # )
-=======
+# =======
+# =======
+# >>>>>>> parent of 5b0a6e5 (Revert "Revert "Merge pull request #4 from RishengShop/master"")
 CATEGORY_CHOICES = (
     ('A', '方便速食'),
     ('B', '火锅料理'),
@@ -30,7 +33,12 @@ CATEGORY_CHOICES = (
     ('H', '冰冻食品'),
     ('I', '其他')
 )
->>>>>>> parent of cb490df (Merge pull request #1 from RishengShop/categories)
+
+
+
+
+
+
 
 LABEL_CHOICES = (
     ('P', 'primary'),
@@ -42,6 +50,33 @@ ADDRESS_CHOICES = (
     ('B', 'Billing'),
     ('S', 'Shipping'),
 )
+
+class Category(models.Model):
+    """Model definition for Category."""
+    name=models.CharField(max_length=250)
+
+    # TODO: Define fields here
+
+    class Meta:
+        """Meta definition for Category."""
+
+        verbose_name = 'Category'
+        verbose_name_plural = 'Categories'
+
+    def __str__(self):
+        """Unicode representation of Category."""
+
+        return self.name
+
+    # def save(self):
+    #     """Save method for Category."""
+    #     pass
+
+    # def get_absolute_url(self):
+    #     """Return absolute url for Category."""
+    #     return ('')
+
+    # TODO: Define custom methods here
 
 
 class UserProfile(models.Model):
@@ -58,11 +93,14 @@ class Item(models.Model):
     title = models.CharField(max_length=100)
     price = models.FloatField()
     discount_price = models.FloatField(blank=True, null=True)
-    category = models.CharField(choices=CATEGORY_CHOICES, max_length=2)
+
+    category = models.ForeignKey(Category, verbose_name='categories', on_delete=models.CASCADE)
+
     label = models.CharField(choices=LABEL_CHOICES, max_length=1)
     slug = models.SlugField()
     description = models.TextField()
     image = models.ImageField()
+    itemid=models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
