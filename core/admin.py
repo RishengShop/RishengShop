@@ -6,8 +6,11 @@ from .models import Item, OrderItem, Order, Payment, Coupon, Refund, Address, Us
 def make_refund_accepted(modeladmin, request, queryset):
     queryset.update(refund_requested=False, refund_granted=True)
 
+def make_being_delivered(modeladmin, request, queryset):
+    queryset.update(being_delivered=True, refund_granted=True)
 
 make_refund_accepted.short_description = 'Update orders to refund granted'
+make_being_delivered.short_description = 'Update orders to being delivered'
 
 
 class OrderAdmin(admin.ModelAdmin):
@@ -20,14 +23,14 @@ class OrderAdmin(admin.ModelAdmin):
                     'shipping_address',
                     'billing_address',
                     'payment',
-                    'coupon'
+                    'coupon',
                     ]
     list_display_links = [
         'user',
         'shipping_address',
         'billing_address',
         'payment',
-        'coupon'
+        'coupon',
     ]
     list_filter = ['ordered',
                    'being_delivered',
@@ -38,7 +41,24 @@ class OrderAdmin(admin.ModelAdmin):
         'user__username',
         'ref_code'
     ]
-    actions = [make_refund_accepted]
+    actions = [make_refund_accepted, make_being_delivered]
+
+
+class OrderItemAdmin(admin.ModelAdmin):
+
+    list_display = [
+        'user',
+        'item',
+        'quantity',
+    ]
+
+    list_display_links = [
+        'user',
+        'item',
+    ]
+
+    search_fields = ['user__username', 'item']
+
 
 
 class AddressAdmin(admin.ModelAdmin):
@@ -56,15 +76,11 @@ class AddressAdmin(admin.ModelAdmin):
 
 
 admin.site.register(Item)
-admin.site.register(OrderItem)
+admin.site.register(OrderItem, OrderItemAdmin)
 admin.site.register(Order, OrderAdmin)
-admin.site.register(Payment)
-admin.site.register(Coupon)
-admin.site.register(Refund)
+# admin.site.register(Payment)
+# admin.site.register(Coupon)
+# admin.site.register(Refund)
 admin.site.register(Address, AddressAdmin)
-admin.site.register(UserProfile)
+# admin.site.register(UserProfile)
 admin.site.register(Category)
-# <<<<<<< HEAD
-
-# =======
-# >>>>>>> parent of 5b0a6e5 (Revert "Revert "Merge pull request #4 from RishengShop/master"")
