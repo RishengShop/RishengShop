@@ -1,6 +1,7 @@
 {% extends "base.html" %}
 
 {% block content %}
+{% load static %}
 
   <main class="mt-5 pt-4">
     <div class="container dark-grey-text mt-5">
@@ -93,17 +94,9 @@
       <div class="row wow fadeIn">
 
         <!--Grid column-->
-        <div class="col-lg-4 col-md-12 mb-4">
+        <div class="col-lg-4 col-md-12 mb-4" href="/">
 
-          <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/11.jpg" class="img-fluid" alt="">
-
-        </div>
-        <!--Grid column-->
-
-        <!--Grid column-->
-        <div class="col-lg-4 col-md-6 mb-4">
-
-          <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/12.jpg" class="img-fluid" alt="">
+          <img src="{% static 'img/logo/logo300px.jpg'%}" class="img-fluid" alt="">
 
         </div>
         <!--Grid column-->
@@ -111,7 +104,15 @@
         <!--Grid column-->
         <div class="col-lg-4 col-md-6 mb-4">
 
-          <img src="https://mdbootstrap.com/img/Photos/Horizontal/E-commerce/Products/13.jpg" class="img-fluid" alt="">
+          <img src="{% static 'img/logo/二维码300px.jpg'%}" class="img-fluid" alt="">
+
+        </div>
+<!--        Grid column-->
+
+        <!--Grid column-->
+        <div class="col-lg-4 col-md-6 mb-4">
+
+          <img src="{% static 'img/logo/廖家食堂300px.jpg'%}" class="img-fluid" alt="">
 
         </div>
         <!--Grid column-->
