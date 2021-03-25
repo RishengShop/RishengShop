@@ -4,14 +4,14 @@ from .models import Item, OrderItem, Order, Payment, Coupon, Refund, Address, Us
 
 from django.contrib.auth.models import User
 
-def make_refund_accepted(modeladmin, request, queryset):
-    queryset.update(refund_requested=False, refund_granted=True)
+# def make_refund_accepted(modeladmin, request, queryset):
+#     queryset.update(refund_requested=False, refund_granted=True)
 
 def make_being_delivered(modeladmin, request, queryset):
     queryset.update(being_delivered=True, refund_granted=True)
 
-make_refund_accepted.short_description = 'Update orders to refund granted'
-make_being_delivered.short_description = 'Update orders to being delivered'
+# make_refund_accepted.short_description = 'Update orders to refund granted'
+make_being_delivered.short_description = '更新订单为已配送'
 
 class ItemAdmin(admin.ModelAdmin):
     list_display = ['get_title',
@@ -69,7 +69,7 @@ class OrderAdmin(admin.ModelAdmin):
         'user__username',
         'ref_code'
     ]
-    actions = [make_refund_accepted, make_being_delivered]
+    actions = [make_being_delivered, ]
 
 class CategoryAdmin(admin.ModelAdmin):
     list_display = ['get_category_name',
@@ -99,7 +99,7 @@ class OrderItemAdmin(admin.ModelAdmin):
     ]
 
     list_filter = [
-        ''
+        'order__being_delivered',
         'item_id__category',
     ]
 
