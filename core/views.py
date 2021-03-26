@@ -1,6 +1,6 @@
 import random
 import string
-
+from django.db.models import Q
 import stripe
 from django.conf import settings
 from django.contrib import messages
@@ -35,7 +35,6 @@ def is_valid_form(values):
         if field == '':
             valid = False
     return valid
-
 
 class CheckoutView(View):
     def get(self, *args, **kwargs):
@@ -128,82 +127,98 @@ class CheckoutView(View):
                         messages.info(
                             self.request, "Please fill in the required shipping address fields")
 
-                use_default_billing = form.cleaned_data.get(
-                    'use_default_billing')
-                same_billing_address = form.cleaned_data.get(
-                    'same_billing_address')
+                # use_default_billing = form.cleaned_data.get(
+                #     'use_default_billing')
+                # same_billing_address = form.cleaned_data.get(
+                #     'same_billing_address')
 
-                if same_billing_address:
-                    billing_address = shipping_address
-                    billing_address.pk = None
-                    billing_address.save()
-                    billing_address.address_type = 'B'
-                    billing_address.save()
-                    order.billing_address = billing_address
-                    order.save()
+                # if same_billing_address:
+                #     billing_address = shipping_address
+                #     billing_address.pk = None
+                #     billing_address.save()
+                #     billing_address.address_type = 'B'
+                #     billing_address.save()
+                #     order.billing_address = billing_address
+                #     order.save()
 
-                elif use_default_billing:
-                    print("Using the defualt billing address")
-                    address_qs = Address.objects.filter(
-                        user=self.request.user,
-                        address_type='B',
-                        default=True
-                    )
-                    if address_qs.exists():
-                        billing_address = address_qs[0]
-                        order.billing_address = billing_address
-                        order.save()
-                    else:
-                        messages.info(
-                            self.request, "No default billing address available")
-                        return redirect('core:checkout')
-                else:
-                    print("User is entering a new billing address")
-                    billing_address1 = form.cleaned_data.get(
-                        'billing_address')
-                    billing_address2 = form.cleaned_data.get(
-                        'billing_address2')
-                    billing_country = form.cleaned_data.get(
-                        'billing_country')
-                    billing_zip = form.cleaned_data.get('billing_zip')
+                # elif use_default_billing:
+                #     print("Using the defualt billing address")
+                #     address_qs = Address.objects.filter(
+                #         user=self.request.user,
+                #         address_type='B',
+                #         default=True
+                #     )
+                #     if address_qs.exists():
+                #         billing_address = address_qs[0]
+                #         order.billing_address = billing_address
+                #         order.save()
+                #     else:
+                #         messages.info(
+                #             self.request, "No default billing address available")
+                #         return redirect('core:checkout')
+                # else:
+                #     print("User is entering a new billing address")
+                #     billing_address1 = form.cleaned_data.get(
+                #         'billing_address')
+                #     billing_address2 = form.cleaned_data.get(
+                #         'billing_address2')
+                #     billing_country = form.cleaned_data.get(
+                #         'billing_country')
+                #     billing_zip = form.cleaned_data.get('billing_zip')
 
-                    if is_valid_form([billing_address1, billing_country, billing_zip]):
-                        billing_address = Address(
-                            user=self.request.user,
-                            street_address=billing_address1,
-                            apartment_address=billing_address2,
-                            country=billing_country,
-                            zip=billing_zip,
-                            address_type='B'
-                        )
-                        billing_address.save()
+                #     if is_valid_form([billing_address1, billing_country, billing_zip]):
+                #         billing_address = Address(
+                #             user=self.request.user,
+                #             street_address=billing_address1,
+                #             apartment_address=billing_address2,
+                #             country=billing_country,
+                #             zip=billing_zip,
+                #             address_type='B'
+                #         )
+                #         billing_address.save()
 
-                        order.billing_address = billing_address
-                        order.save()
+                #         order.billing_address = billing_address
+                #         order.save()
 
-                        set_default_billing = form.cleaned_data.get(
-                            'set_default_billing')
-                        if set_default_billing:
-                            billing_address.default = True
-                            billing_address.save()
+                #         set_default_billing = form.cleaned_data.get(
+                #             'set_default_billing')
+                #         if set_default_billing:
+                #             billing_address.default = True
+                #             billing_address.save()
 
-                    else:
-                        messages.info(
-                            self.request, "Please fill in the required billing address fields")
+                #     else:
+                #         messages.info(
+                #             self.request, "Please fill in the required billing address fields")
 
                 payment_option = form.cleaned_data.get('payment_option')
 
-                if payment_option == 'S':
-                    return redirect('core:payment', payment_option='stripe')
-                elif payment_option == 'P':
-                    return redirect('core:payment', payment_option='paypal')
-                else:
-                    messages.warning(
-                        self.request, "Invalid payment option selected")
-                    return redirect('core:checkout')
+                # if payment_option == 'S':
+                #     return redirect('core:payment', payment_option='stripe')
+                # elif payment_option == 'P':
+                #     return redirect('core:payment', payment_option='paypal')
+                # else:
+                #     messages.warning(
+                #         self.request, "Invalid payment option selected")
+                #     return redirect('core:checkout')
+               
+               
+                order_items = order.items.all()
+                order_items.update(ordered=True)
+                for item in order_items:
+                    item.save()
+
+                order.ordered = True
+                # order.payment = payment
+                order.ref_code = create_ref_code()
+                order.save()
+
+                messages.success(self.request, "Your order was successful!")
+                return redirect("/")
+
         except ObjectDoesNotExist:
             messages.warning(self.request, "You do not have an active order")
             return redirect("core:order-summary")
+
 
 
 class PaymentView(View):
@@ -293,47 +308,47 @@ class PaymentView(View):
                     item.save()
 
                 order.ordered = True
-                order.payment = payment
+                # order.payment = payment
                 order.ref_code = create_ref_code()
                 order.save()
 
                 messages.success(self.request, "Your order was successful!")
                 return redirect("/")
 
-            except stripe.error.CardError as e:
-                body = e.json_body
-                err = body.get('error', {})
-                messages.warning(self.request, f"{err.get('message')}")
-                return redirect("/")
+            # except stripe.error.CardError as e:
+            #     body = e.json_body
+            #     err = body.get('error', {})
+            #     messages.warning(self.request, f"{err.get('message')}")
+            #     return redirect("/")
 
-            except stripe.error.RateLimitError as e:
-                # Too many requests made to the API too quickly
-                messages.warning(self.request, "Rate limit error")
-                return redirect("/")
+            # except stripe.error.RateLimitError as e:
+            #     # Too many requests made to the API too quickly
+            #     messages.warning(self.request, "Rate limit error")
+            #     return redirect("/")
 
-            except stripe.error.InvalidRequestError as e:
-                # Invalid parameters were supplied to Stripe's API
-                print(e)
-                messages.warning(self.request, "Invalid parameters")
-                return redirect("/")
+            # except stripe.error.InvalidRequestError as e:
+            #     # Invalid parameters were supplied to Stripe's API
+            #     print(e)
+            #     messages.warning(self.request, "Invalid parameters")
+            #     return redirect("/")
 
-            except stripe.error.AuthenticationError as e:
-                # Authentication with Stripe's API failed
-                # (maybe you changed API keys recently)
-                messages.warning(self.request, "Not authenticated")
-                return redirect("/")
+            # except stripe.error.AuthenticationError as e:
+            #     # Authentication with Stripe's API failed
+            #     # (maybe you changed API keys recently)
+            #     messages.warning(self.request, "Not authenticated")
+            #     return redirect("/")
 
-            except stripe.error.APIConnectionError as e:
-                # Network communication with Stripe failed
-                messages.warning(self.request, "Network error")
-                return redirect("/")
+            # except stripe.error.APIConnectionError as e:
+            #     # Network communication with Stripe failed
+            #     messages.warning(self.request, "Network error")
+            #     return redirect("/")
 
-            except stripe.error.StripeError as e:
-                # Display a very generic error to the user, and maybe send
-                # yourself an email
-                messages.warning(
-                    self.request, "Something went wrong. You were not charged. Please try again.")
-                return redirect("/")
+            # except stripe.error.StripeError as e:
+            #     # Display a very generic error to the user, and maybe send
+            #     # yourself an email
+            #     messages.warning(
+            #         self.request, "Something went wrong. You were not charged. Please try again.")
+            #     return redirect("/")
 
             except Exception as e:
                 # send an email to ourselves
@@ -342,7 +357,8 @@ class PaymentView(View):
                 return redirect("/")
 
         messages.warning(self.request, "Invalid data received")
-        return redirect("/payment/stripe/")
+        # return redirect("/payment/stripe/") original redirect 
+        return redirect("/")
 
 
 class HomeView(ListView):
@@ -517,3 +533,30 @@ class RequestRefundView(View):
             except ObjectDoesNotExist:
                 messages.info(self.request, "This order does not exist.")
                 return redirect("core:request-refund")
+
+
+
+
+
+
+class SearchResultsView(ListView):
+    model = Item
+    template_name = 'core/search.html'
+
+    
+    
+    def get_queryset(self): # new
+        query = self.request.GET.get('q')
+        object_list = Item.objects.filter(
+            Q(title__icontains=query) | Q(description__icontains=query)
+        )
+        return object_list
+
+
+def search_results(request):
+    query = self.request.GET.get('q')
+    object_list = Item.objects.filter(
+            Q(title__icontains=query) | Q(description__icontains=query)
+        )
+
+    return render(request,'core/search.html')

@@ -1,0 +1,49 @@
+{% extends "base.html" %}
+{% block head_title %}
+User History
+{% endblock head_title %}
+
+
+
+{% block content %}
+<main>
+    <div class="container">
+
+        <div class="table-responsive text-nowrap">
+            <h2> 订单历史</h2>
+            <table id="table_id" class="table">
+                <thead>
+                    <tr>
+                        <th scope="col">#</th>
+                        <th scope="col">Items</th>
+                        <th scope="col">Date</th>
+                        <th scope="col">Order Status</th>
+
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for order in orders %}
+                    <tr>
+                        <td>{{forloop.counter}}</td>
+                        <td>
+                            {% for items in order.items.all %}
+                            {{items}},
+                            {% endfor %}
+                        </td>
+                        <td>{{order.ordered_date}}</td>
+                        <td>
+                            {% if order.being_delivered %}
+                            Delivered
+                            {% else %}
+                            Pending
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+
+                </tbody>
+            </table>
+        </div>
+    </div>
+</main>
+{% endblock content %}
