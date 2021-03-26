@@ -363,7 +363,7 @@ class PaymentView(View):
 
 class HomeView(ListView):
     model = Item
-    paginate_by = 10
+    paginate_by = 20
     template_name = "home.html"
 
 

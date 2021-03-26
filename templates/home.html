@@ -1,8 +1,11 @@
 {% extends "base.html" %}
 
 {% block content %}
+
+{% load static %}
 <main>
   <div class="container">
+    <img src="{% static 'img/news/new1.jpg'%}" class="img-thumbnail">
 
     <!--Navbar-->
     {% include "snippets/nav.html" %}
@@ -39,7 +42,7 @@
               </h5>
 
               <h4 class="font-weight-bold blue-text">
-                <strong>$
+                <strong>€
                   {% if item.discount_price %}
                   {{ item.discount_price }}
                   {% else %}

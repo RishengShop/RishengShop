@@ -5,7 +5,6 @@
     <div class="container">
 
         <!--Navbar-->
-        {% comment %}
         <nav class="navbar navbar-expand-lg navbar-dark mdb-color lighten-3 mt-3 mb-5">
 
             <!-- Navbar brand -->
@@ -25,43 +24,16 @@
 
                 <!-- Links -->
                 <ul class="navbar-nav mr-auto">
-                    <li class="nav-item active">
-                        <a class="nav-link" href="#">特别推荐
-                            <span class="sr-only">(current)</span>
-                        </a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">方便速食</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">火锅料理</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">生鲜蛋面</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">休闲零食</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">五谷干货</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">鲜香调味</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">时令果蔬</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">冰冻食品</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" href="#">其他</a>
-                    </li>
+
+          {% for cat in cats %}
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'categories:category_list' cat.pk %}">{{cat.name|title}}</a>
+          </li>
+
+          {% endfor %}
 
 
-
-
-                </ul>
+        </ul>
                 <!-- Links -->
 
                 <form class="form-inline">
@@ -75,7 +47,6 @@
             <!-- Collapsible content -->
 
         </nav>
-        {% endcomment %}
         <!--/.Navbar-->
 
         <!--Section: Products v.3-->
@@ -111,7 +82,7 @@
                             </h5>
 
                             <h4 class="font-weight-bold blue-text">
-                                <strong>$
+                                <strong>€
                                     {% if item.discount_price %}
                                     {{ item.discount_price }}
                                     {% else %}

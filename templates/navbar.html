@@ -1,11 +1,13 @@
 {% load cart_template_tags %}
+{% load static %}
 
 <nav class="navbar fixed-top navbar-expand-lg navbar-light white scrolling-navbar">
   <div class="container">
 
     <!-- Brand -->
     <a class="navbar-brand waves-effect" href="/">
-      <strong class="blue-text">日升超市</strong>
+      <img src="{% static 'img/logo/logo.png'%}">
+      <!--      <strong class="blue-text">日升超市</strong>-->
     </a>
 
     <!-- Collapse -->
@@ -18,37 +20,119 @@
     <div class="collapse navbar-collapse" id="navbarSupportedContent">
 
       <!-- Left -->
+
+
+
       <ul class="navbar-nav mr-auto">
 
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-mdb-toggle="dropdown"
             aria-expanded="false">
-            类别
+            类别1
           </a>
+
           <!-- Dropdown menu -->
           <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
             {% for cat in cats %}
-
-            <li><a href="{% url 'categories:category_list' cat.pk %}" class="dropdown-item"
-                href="#">{{cat.name|title}}</a></li>
-            <!-- <hr class="dropdown-divider" /> -->
-            {% endfor %}
-
-
-
-          </ul>
+            {% if forloop.counter >= 0 and forloop.counter < 6 %} <li><a
+                href="{% url 'categories:category_list' cat.pk %}" class="dropdown-item" href="#">{{cat.name|title}}</a>
         </li>
+        <!-- <hr class="dropdown-divider" /> -->
+        {% endif %}
+        {% endfor %}
 
+      </ul>
 
-        {% if request.user.is_superuser %}
-        <li class="nav-item active">
-          <a class="nav-link waves-effect" href="{% url 'orders:get_orders' %}">命令
+      </li>
 
-          </a>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-mdb-toggle="dropdown"
+          aria-expanded="false">
+          类别2
+        </a>
+
+        <!-- Dropdown menu -->
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          {% for cat in cats %}
+          {% if forloop.counter >= 6 and forloop.counter < 11 %} <li><a
+              href="{% url 'categories:category_list' cat.pk %}" class="dropdown-item" href="#">{{cat.name|title}}</a>
+      </li>
+      <!-- <hr class="dropdown-divider" /> -->
+      {% endif %}
+      {% endfor %}
+
+      </ul>
+
+      </li>
+
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-mdb-toggle="dropdown"
+          aria-expanded="false">
+          类别3
+        </a>
+
+        <!-- Dropdown menu -->
+        <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+          {% for cat in cats %}
+          {% if forloop.counter >= 11 and forloop.counter < 16 %} <li><a
+              href="{% url 'categories:category_list' cat.pk %}" class="dropdown-item" href="#">{{cat.name|title}}</a>
+      </li>
+      <!-- <hr class="dropdown-divider" /> -->
+      {% endif %}
+      {% endfor %}
+      </ul>
+
+      </li>
+
+      <<<<<<< HEAD {% if request.user.is_superuser %} <li class="nav-item active">
+        <a class="nav-link waves-effect" href="{% url 'orders:get_orders' %}">命令
+
+        </a>
         </li>
         {% endif %}
 
 
+        =======
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-mdb-toggle="dropdown"
+            aria-expanded="false">
+            类别4
+          </a>
+
+          <!-- Dropdown menu -->
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% for cat in cats %}
+            {% if forloop.counter >= 16 and forloop.counter < 21 %} <li><a
+                href="{% url 'categories:category_list' cat.pk %}" class="dropdown-item" href="#">{{cat.name|title}}</a>
+        </li>
+        <!-- <hr class="dropdown-divider" /> -->
+        {% endif %}
+        {% endfor %}
+
+        </ul>
+
+        </li>
+
+        <li class="nav-item dropdown">
+          <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-mdb-toggle="dropdown"
+            aria-expanded="false">
+            类别5
+          </a>
+
+          <!-- Dropdown menu -->
+          <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
+            {% for cat in cats %}
+            {% if forloop.counter >= 21 and forloop.counter < 26 %} <li><a
+                href="{% url 'categories:category_list' cat.pk %}" class="dropdown-item" href="#">{{cat.name|title}}</a>
+        </li>
+        <!-- <hr class="dropdown-divider" /> -->
+        {% endif %}
+        {% endfor %}
+
+        </ul>
+
+        </li>
+        >>>>>>> 37b132471822844dc9cdc12cdc2bc1915d26bbf0
 
         {% comment %} <li class="nav-item active">
           <a class="nav-link waves-effect" href="/">Home
@@ -60,46 +144,48 @@
             Checkout</a>
         </li> {% endcomment %}
 
-      </ul>
+        </ul>
 
-      <!-- Right -->
-      <ul class="navbar-nav nav-flex-icons">
-        {% if request.user.is_authenticated %}
+        <!-- Right -->
 
-        <li class="nav-item">
-          <a class="nav-link waves-effect" href="{% url 'orders:order_history' %}">
-            <span class="clearfix d-none d-sm-inline-block"> 订单历史 </span>
-          </a>
-        </li>
+        <ul class="navbar-nav nav-flex-icons">
+          {% if request.user.is_authenticated %}
 
-        <li class="nav-item">
-          <a href="{% url 'core:order-summary' %}" class="nav-link waves-effect">
-            <span class="badge red z-depth-1 mr-1"> {{ request.user|cart_item_count }} </span>
-            <i class="fas fa-shopping-cart"></i>
-            <span class="clearfix d-none d-sm-inline-block"> 购物车 </span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link waves-effect" href="{% url 'account_logout' %}">
-            <span class="clearfix d-none d-sm-inline-block"> 登出 </span>
-          </a>
-        </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="{% url 'orders:order_history' %}">
+              <span class="clearfix d-none d-sm-inline-block"> 订单历史 </span>
+            </a>
+          </li>
+
+          <li class="nav-item">
+            <a href="{% url 'core:order-summary' %}" class="nav-link waves-effect">
+              <span class="badge red z-depth-1 mr-1"> {{ request.user|cart_item_count }} </span>
+              <i class="fas fa-shopping-cart"></i>
+              <span class="clearfix d-none d-sm-inline-block"> 购物车 </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="{% url 'account_logout' %}">
+              <span class="clearfix d-none d-sm-inline-block"> 登出 </span>
+            </a>
+          </li>
 
 
 
-        {% else %}
-        <li class="nav-item">
-          <a class="nav-link waves-effect" href="{% url 'account_login' %}">
-            <span class="clearfix d-none d-sm-inline-block"> 登录 </span>
-          </a>
-        </li>
-        <li class="nav-item">
-          <a class="nav-link waves-effect" href="{% url 'account_signup' %}">
-            <span class="clearfix d-none d-sm-inline-block"> 注册 </span>
-          </a>
-        </li>
-        {% endif %}
-      </ul>
+          {% else %}
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="{% url 'account_login' %}">
+              <span class="clearfix d-none d-sm-inline-block"> 登录 </span>
+            </a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link waves-effect" href="{% url 'account_signup' %}">
+              <span class="clearfix d-none d-sm-inline-block"> 注册 </span>
+            </a>
+          </li>
+          {% endif %}
+        </ul>
+
     </div>
 
   </div>
