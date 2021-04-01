@@ -2,6 +2,7 @@ from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path, include
+from .views import register_user
 
 urlpatterns = [
     path('admin/', admin.site.urls),
@@ -9,6 +10,7 @@ urlpatterns = [
     path('', include('core.urls', namespace='core')),
     path("category/", include('category.urls')),
     path("orders/", include('orders.urls')),
+    path('account/register-user',register_user,name='register')
 ]
 
 if settings.DEBUG:

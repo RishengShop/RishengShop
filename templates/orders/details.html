@@ -25,6 +25,8 @@ Orders
                     <li class="list-group-item">Address:
                         {{order.shipping_address.street_address|title}},{{order.shipping_address.apartment_address|title}},{{order.shipping_address.zip}}
                     </li>
+                    <li class="list-group-item">Phone Number : {{order.shipping_address.phone}}</li>
+
                     <li class="list-group-item">Order ID : {{order.ref_code}}</li>
                     <li class="list-group-item">Total: &euro; {{order.get_total}}</li>
 
