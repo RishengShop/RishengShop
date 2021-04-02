@@ -85,7 +85,7 @@
       </li>
 
       {% if request.user.is_superuser %} <li class="nav-item active">
-        <a class="nav-link waves-effect" href="{% url 'orders:get_orders' %}">命令
+        <a class="nav-link waves-effect" href="{% url 'orders:get_orders' %}">订单管理(仅管理员可见)
 
         </a>
       </li>
@@ -153,7 +153,8 @@
 
         <li class="nav-item">
           <a class="nav-link waves-effect" href="{% url 'orders:order_history' %}">
-            <span class="clearfix d-none d-sm-inline-block"> 订单历史 </span>
+<!--            <span class="clearfix d-none d-sm-inline-block"> 订单历史 </span>-->
+            <span> 订单历史 </span>-->
           </a>
         </li>
 
@@ -161,12 +162,14 @@
           <a href="{% url 'core:order-summary' %}" class="nav-link waves-effect">
             <span class="badge red z-depth-1 mr-1"> {{ request.user|cart_item_count }} </span>
             <i class="fas fa-shopping-cart"></i>
-            <span class="clearfix d-none d-sm-inline-block"> 购物车 </span>
+<!--            <span class="clearfix d-none d-sm-inline-block"> 购物车 </span>-->
+            <span> 购物车 </span>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link waves-effect" href="{% url 'account_logout' %}">
-            <span class="clearfix d-none d-sm-inline-block"> 登出 </span>
+<!--            <span class="clearfix d-none d-sm-inline-block"> 登出 </span>-->
+            <span> 登出 </span>
           </a>
         </li>
 
@@ -175,12 +178,14 @@
         {% else %}
         <li class="nav-item">
           <a class="nav-link waves-effect" href="{% url 'account_login' %}">
-            <span class="clearfix d-none d-sm-inline-block"> 登录 </span>
+<!--            <span class="clearfix d-none d-sm-inline-block"> 登录 </span>-->
+            <span> 登录 </span>
           </a>
         </li>
         <li class="nav-item">
           <a class="nav-link waves-effect" href="{% url 'account_signup' %}">
-            <span class="clearfix d-none d-sm-inline-block"> 注册 </span>
+<!--            <span class="clearfix d-none d-sm-inline-block"> 注册 </span>-->
+            <span> 注册 </span>
           </a>
         </li>
         {% endif %}
