@@ -12,7 +12,7 @@
           <form method="POST" class="card-body">
             {% csrf_token %}
 
-            <h3>收货地址</h3>
+            <h3 style="text-align:center">收货地址</h3>
 
             <div class='hideable_shipping_form'>
 
@@ -122,7 +122,7 @@
             <hr>
 
 
-            <h3>支付方式</h3>
+            <h3 style="text-align:center">支付方式</h3>
 
             <div class="d-block my-3">
               {% for value, name in form.fields.payment_option.choices %}
@@ -143,9 +143,9 @@
 
       </div>
 
-      <div class="col-md-4 mb-4">
-        {% include "order_snippet.html" %}
-      </div>
+<!--      <div class="col-md-4 mb-4">-->
+<!--        {% include "order_snippet.html" %}-->
+<!--      </div>-->
 
     </div>
 
