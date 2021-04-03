@@ -4657,9 +4657,7 @@ input[type="button"].btn-block {
 }
 
 .card-img-top {
-  width: 255px;
-  height: 255px;
-  object-fit: cover;
+  width: 100%;
   border-top-left-radius: calc(0.25rem - 1px);
   border-top-right-radius: calc(0.25rem - 1px);
 }
