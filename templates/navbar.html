@@ -22,7 +22,7 @@
       <!-- Left -->
 
 
-
+{% comment %}
       <ul class="navbar-nav mr-auto">
 
         <li class="nav-item dropdown">
@@ -132,7 +132,7 @@
       </ul>
 
       </li>
-
+{% endcomment %}
 
       {% comment %} <li class="nav-item active">
         <a class="nav-link waves-effect" href="/">Home
@@ -183,7 +183,7 @@
           </a>
         </li>
         <li class="nav-item">
-          <a class="nav-link waves-effect" href="{% url 'account_signup' %}">
+          <a class="nav-link waves-effect" href="{% url 'register' %}">
 <!--            <span class="clearfix d-none d-sm-inline-block"> 注册 </span>-->
             <span> 注册 </span>
           </a>

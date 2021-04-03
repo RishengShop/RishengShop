@@ -18,7 +18,7 @@ def register_user(request):
             user=authenticate(username=username,password=password)
             login(request,user)
             messages.success(request,"Welcome {}".format(username))
-            return HttpResponseRedirect(reverse('home'))
+            return HttpResponseRedirect(reverse('core:home'))
         else:
             messages.error(request,form.errors)
             return render(request,"account/signup.html",{'form':form})
