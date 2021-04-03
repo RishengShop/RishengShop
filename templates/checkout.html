@@ -7,68 +7,74 @@
   <div class="container wow fadeIn">
     <h2 class="my-5 h2 text-center">订单核对</h2>
     <div class="row">
-      <div class="col-md-8 mb-4">
-        <div class="card">
-          <form method="POST" class="card-body">
-            {% csrf_token %}
+      <div class="col-sm-6 col-lg-8">
 
-            <h3>收货地址</h3>
+        <form method="POST" class="form-group">
+          {% csrf_token %}
 
-            <div class='hideable_shipping_form'>
+          <h3>收货地址</h3>
 
-              <div class="md-form mb-5">
-                <input type='text' placeholder='1234 Main St' id='shipping_address' name='shipping_address'
-                  class='form-control' />
-                <label for="shipping_address" class="">地址</label>
-              </div>
+          <div class='hideable_shipping_form'>
 
-              <div class="md-form mb-5">
-                <input type='text' placeholder='Apartment or suite' id='shipping_address2' name='shipping_address2'
-                  class='form-control' />
-                <label for="shipping_address2" class="">地址(可选)</label>
-              </div>
+            <div class="md-form mb-5">
+              <input type='text' placeholder='1234 Main St' id='shipping_address' name='shipping_address'
+                class='form-control' />
+              <label for="shipping_address" class="">地址</label>
+            </div>
 
-              <div class="row">
-                <div class="col-lg-4 col-md-12 mb-4">
-                  <label for="country">国家</label>
-                  {{ form.shipping_country }}
-                  <div class="invalid-feedback">
-                    Please select a valid country.
-                  </div>
-                </div>
-                <div class="col-lg-4 col-md-6 mb-4">
-                  <label for="shipping_zip">邮编</label>
-                  <input type='text' placeholder='Zip code' id='shipping_zip' name='shipping_zip'
-                    class='form-control' />
-                  <div class="invalid-feedback">
-                    Zip code required.
-                  </div>
+            <div class="md-form mb-5">
+              <input type='text' placeholder='Apartment or suite' id='shipping_address2' name='shipping_address2'
+                class='form-control' />
+              <label for="shipping_address2" class="">地址(可选)</label>
+            </div>
+
+            <div class="row">
+              <div class="col-lg-4 col-md-12 ">
+                <label for="country">国家</label>
+                {{ form.shipping_country }}
+                <div class="invalid-feedback">
+                  Please select a valid country.
                 </div>
               </div>
+              <div class="col-lg-4 col-md-6 ">
+                <label for="shipping_zip">邮编</label>
+                <input type='text' placeholder='Zip code' id='shipping_zip' name='shipping_zip' class='form-control' />
+                <div class="invalid-feedback">
+                  Zip code required.
+                </div>
+              </div>
+              <div class="col-lg-4 col-md-6 ">
+                <label for="shipping_phone">电话号码</label>
+                <input type='text' placeholder='phone number ' id='shipping_zip' name='shipping_phone'
+                  class='form-control' />
+                <div class="invalid-feedback">
+                  Phone number required.
+                </div>
+              </div>
+            </div>
 
 
-              <!--<div class="custom-control custom-checkbox">
+            <!--<div class="custom-control custom-checkbox">
                   <input type="checkbox" class="custom-control-input" name="same_billing_address" id="same_billing_address">
                   <label class="custom-control-label" for="same_billing_address">Billing address is the same as my shipping address</label>
                 </div>
                 -->
-              <div class="custom-control custom-checkbox">
-                <input type="checkbox" class="custom-control-input" name="set_default_shipping"
-                  id="set_default_shipping">
-                <label class="custom-control-label" for="set_default_shipping">保存为默认收货地址</label>
-              </div>
-
-            </div>
-
-
-            {% if default_shipping_address %}
             <div class="custom-control custom-checkbox">
-              <input type="checkbox" class="custom-control-input" name="use_default_shipping" id="use_default_shipping">
-              <label class="custom-control-label" for="use_default_shipping">使用默认收货地址</label>
+              <input type="checkbox" class="custom-control-input" name="set_default_shipping" id="set_default_shipping">
+              <label class="custom-control-label" for="set_default_shipping">保存为默认收货地址</label>
             </div>
-            {% endif %}
 
-            <!--
+          </div>
+
+
+          {% if default_shipping_address %}
+          <div class="custom-control custom-checkbox">
+            <input type="checkbox" class="custom-control-input" name="use_default_shipping" id="use_default_shipping">
+            <label class="custom-control-label" for="use_default_shipping">使用默认收货地址</label>
+          </div>
+          {% endif %}
+
+          <!--
               <hr>
 
               <h3>Billing address</h3>
@@ -85,7 +91,7 @@
                 </div>
 
                 <div class="row">
-                  <div class="col-lg-4 col-md-12 mb-4">
+                  <div class="col-lg-4 col-md-12 ">
                     <label for="country">Country</label>
                     {{ form.billing_country }}
                     <div class="invalid-feedback">
@@ -93,7 +99,7 @@
                     </div>
                   </div>
 
-                  <div class="col-lg-4 col-md-6 mb-4">
+                  <div class="col-lg-4 col-md-6 ">
                     <label for="billing_zip">Zip</label>
                     <input type='text' placeholder='Zip code' id='billing_zip' name='billing_zip' class='form-control' />
                     <div class="invalid-feedback">
@@ -119,31 +125,30 @@
               {% endif %}
 
               -->
-            <hr>
+          <hr>
 
 
-            <h3>支付方式</h3>
+          <h3>支付方式</h3>
 
-            <div class="d-block my-3">
-              {% for value, name in form.fields.payment_option.choices %}
-              <div class="custom-control custom-radio">
-                <input id="{{ name }}" name="payment_option" value="{{ value }}" type="radio"
-                  class="custom-control-input" required>
-                <label class="custom-control-label" for="{{ name }}">{{ name }}</label>
-              </div>
-              {% endfor %}
+          <div class="d-block my-3">
+            {% for value, name in form.fields.payment_option.choices %}
+            <div class="custom-control custom-radio">
+              <input id="{{ name }}" name="payment_option" value="{{ value }}" type="radio" class="custom-control-input"
+                required>
+              <label class="custom-control-label" for="{{ name }}">{{ name }}</label>
             </div>
+            {% endfor %}
+          </div>
 
-            <hr class="mb-4">
-            <button class="btn btn-primary btn-lg btn-block" type="submit">提交订单</button>
+          <hr class="">
+          <button class="btn btn-primary btn-lg btn-block" type="submit">提交订单</button>
 
-          </form>
+        </form>
 
-        </div>
 
       </div>
 
-      <div class="col-md-4 mb-4">
+      <div class="col-6 col-lg-4">
         {% include "order_snippet.html" %}
       </div>
 
