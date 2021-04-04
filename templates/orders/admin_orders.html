@@ -15,9 +15,9 @@ Orders
                 <thead>
                     <tr>
 
-                        <th scope="col">项目</th>
+                        <th scope="col">姓名</th>
                         <th scope="col">日期</th>
-                        <th scope="col">订单编号</th>
+                        <th scope="col">商品</th>
 
 
                         <th scope="col">订单状态</th>
@@ -30,14 +30,15 @@ Orders
                     {% for order in orders %}
                     <tr>
 
+                        <td>{{order.user.first_name}}{{order.user.last_name}}</td>
+                        <td>{{order.ordered_date}}</td>
                         <td>
                             {% for items in order.items.all %}
                             {{items}},
                             {% endfor %}
                         </td>
 
-                        <td>{{order.ordered_date}}</td>
-                        <td>{{order.ref_code}}</td>
+<!--                        <td>{{order.ref_code}}</td>&lt;!&ndash;&ndash;&gt;-->
                         <td>
                             {% if order.being_delivered %}
                             Delivered
