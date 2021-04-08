@@ -1,7 +1,7 @@
 from .base import *
 
 DEBUG = True
-ALLOWED_HOSTS = ['127.0.0.1']
+ALLOWED_HOSTS = ['*']
 
 INSTALLED_APPS += [
     'debug_toolbar'
@@ -31,10 +31,10 @@ def show_toolbar(request):
     return True
 
 
-DEBUG_TOOLBAR_CONFIG = {
-    'INTERCEPT_REDIRECTS': False,
-    'SHOW_TOOLBAR_CALLBACK': show_toolbar
-}
+# DEBUG_TOOLBAR_CONFIG = {
+#     'INTERCEPT_REDIRECTS': False,
+#     'SHOW_TOOLBAR_CALLBACK': show_toolbar
+# }
 
 DATABASES = {
     'default': {

@@ -1,60 +1,23 @@
 {% extends "base.html" %}
 
 {% block content %}
+
 <main>
     <div class="container">
 
         <!--Navbar-->
-        <nav class="navbar navbar-expand-lg navbar-dark mdb-color lighten-3 mt-3 mb-5">
-
-            <!-- Navbar brand -->
-            <span class="navbar-brand">类别:</span>
-
-            <!-- Collapse button -->
-            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#basicExampleNav"
-                aria-controls="basicExampleNav" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="navbar-toggler-icon"></span>
-            </button>
-
-            <!-- Collapsible content -->
-
-
-
-            <div class="collapse navbar-collapse" id="basicExampleNav">
-
-                <!-- Links -->
-                <ul class="navbar-nav mr-auto">
-
-          {% for cat in cats %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'categories:category_list' cat.pk %}">{{cat.name|title}}</a>
-          </li>
-
-          {% endfor %}
-
-
-        </ul>
-                <!-- Links -->
-
-                <form class="form-inline">
-                    <div class="md-form my-0">
-                        <input class="form-control mr-sm-2" type="text" placeholder="Search" aria-label="Search">
-                    </div>
-                </form>
-            </div>
-
-
-            <!-- Collapsible content -->
-
-        </nav>
+        {% include "snippets/nav.html" %}
         <!--/.Navbar-->
 
         <!--Section: Products v.3-->
         <section class="text-center mb-4">
 
+            {% if object_list %}
+
+
             <div class="row wow fadeIn">
 
-                {% for item in items %}
+                {% for item in object_list %}
                 <div class="col-lg-3 col-md-6 mb-4">
 
                     <div class="card">
@@ -82,7 +45,7 @@
                             </h5>
 
                             <h4 class="font-weight-bold blue-text">
-                                <strong>€
+                                <strong>$
                                     {% if item.discount_price %}
                                     {{ item.discount_price }}
                                     {% else %}
@@ -98,6 +61,11 @@
                 </div>
                 {% endfor %}
             </div>
+            {% else %}
+
+            <h1> THIS ITEM DOES NOT EXIST </h1>
+
+            {% endif %}
 
         </section>
         <!--Section: Products v.3-->
@@ -137,5 +105,8 @@
 
     </div>
 </main>
+
+
+
 
 {% endblock content %}

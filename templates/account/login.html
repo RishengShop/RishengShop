@@ -6,19 +6,19 @@
 {% block head_title %}{% trans "Sign In" %}{% endblock %}
 
 {% block content %}
-  <main>
-    <div class="container">
-      <section class="mb-4">
-        <div class="row wow fadeIn">
-          <div class='col-6 offset-3'>
+<main>
+  <div class="container">
+    <section class="mb-4">
+      <div class="row wow fadeIn">
+        <div class='col-6 offset-3'>
           <h1>{% trans "登录" %}</h1>
 
           {% get_providers as socialaccount_providers %}
 
           {% if socialaccount_providers %}
-          <p>{% blocktrans with site.name as site_name %}Please sign in with one
-          of your existing third party accounts. Or, <a href="{{ signup_url }}">sign up</a>
-          for a {{ site_name }} account and sign in below:{% endblocktrans %}</p>
+          <p>Please sign in with one
+            of your existing third party accounts. Or, <a href="{% url 'register' %}">sign up</a>
+            for a {{ site_name }} account and sign in below:</p>
 
           <div class="socialaccount_ballot">
 
@@ -33,7 +33,7 @@
           {% include "socialaccount/snippets/login_extra.html" %}
 
           {% else %}
-          <p>{% blocktrans %}如果您没有账户，请先<a href="{{ signup_url }}">注册</a> .{% endblocktrans %}</p>
+          <p>如果您没有账户，请先<a href="{% url 'register' %}">注册</a> .</p>
           {% endif %}
 
           <form class="login" method="POST" action="{% url 'account_login' %}">
@@ -45,10 +45,10 @@
             <a class="btn btn-default" href="{% url 'account_reset_password' %}">{% trans "忘记密码?" %}</a>
             <button class="btn btn-primary" type="submit">{% trans "登录" %}</button>
           </form>
-          </div>
         </div>
-      </section>
-    </div>
-  </main>
+      </div>
+    </section>
+  </div>
+</main>
 
 {% endblock %}
