@@ -34,7 +34,6 @@ Orders
 
                 </ul>
                 </p>
-
             </div>
             <!--Grid column-->
 
@@ -57,9 +56,11 @@ Orders
                     <th scope="col">Item ID</th>
                     <th scope="col">Discount Price</th>
                     <th scope="col">Price</th>
-
                 </tr>
             </thead>
+
+
+
             <tbody>
                 {% for item in order.items.all %}
                 <tr>
@@ -72,6 +73,7 @@ Orders
 
                 </tr>
                 {% endfor %}
+
             </tbody>
         </table>
     </div>
