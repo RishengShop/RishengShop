@@ -102,14 +102,16 @@ class CheckoutView(View):
                     shipping_country = form.cleaned_data.get(
                         'shipping_country')
                     shipping_zip = form.cleaned_data.get('shipping_zip')
+                    shipping_phone = form.cleaned_data.get('shipping_phone')
 
-                    if is_valid_form([shipping_address1, shipping_country, shipping_zip]):
+                    if is_valid_form([shipping_address1, shipping_country, shipping_zip, shipping_phone]):
                         shipping_address = Address(
                             user=self.request.user,
                             street_address=shipping_address1,
                             apartment_address=shipping_address2,
                             country=shipping_country,
                             zip=shipping_zip,
+                            phone=shipping_phone,
                             address_type='S'
                         )
                         shipping_address.save()
