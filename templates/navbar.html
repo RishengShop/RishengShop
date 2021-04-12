@@ -84,12 +84,7 @@
 
       </li>
 
-      {% if request.user.is_superuser %} <li class="nav-item active">
-        <a class="nav-link waves-effect" href="{% url 'orders:get_orders' %}">命令
 
-        </a>
-      </li>
-      {% endif %}
 
 
 
@@ -149,9 +144,10 @@
 {% endcomment %}
       <!-- Right -->
 
+
+
       <ul class="navbar-nav nav-flex-icons">
         {% if request.user.is_authenticated %}
-
         <li class="nav-item">
           <a class="nav-link waves-effect" href="{% url 'orders:order_history' %}">
 <!--            <span class="clearfix d-none d-sm-inline-block"> 订单历史 </span>-->
@@ -167,6 +163,20 @@
               <span> 购物车 </span>
           </a>
         </li>
+
+          {% if user.is_superuser %}
+
+        <li class="nav-item">
+          <a href="{% url 'orders:get_orders' %}" class="nav-link waves-effect">
+            <span class="badge red z-depth-1 mr-1"> </span>
+            <i class="fas fa-archive"></i>
+            <span class="clearfix d-none d-sm-inline-block"> 订单管理(仅管理员可见) </span>
+          </a>
+        </li>
+        {% endif %}
+
+
+
         <li class="nav-item">
           <a class="nav-link waves-effect" href="{% url 'account_logout' %}">
 <!--            <span class="clearfix d-none d-sm-inline-block"> 登出 </span>-->
