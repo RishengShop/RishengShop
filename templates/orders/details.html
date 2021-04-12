@@ -7,15 +7,15 @@ Orders
 
 {% block content %}
 
-<main class="mt-5 pt-1">
+<main class="mt-5 pt-4">
     <div class="container dark-grey-text mt-5">
 
 
 
-        <div class="row d-flex justify-content-center">
+        <div class="row d-flex justify-content-center wow fadeIn">
 
             <!--Grid column-->
-            <div class="col-md-12 ">
+            <div class="col-md-6 text-center">
 
                 <h4 class="my-4 h4">Order Details</h4>
 
@@ -23,13 +23,11 @@ Orders
                 <ul class="list-group list-group-flush">
                     <li class="list-group-item">Customer: {{order.user.first_name}} {{order.user.last_name}}</li>
                     <li class="list-group-item">Address:
-                        {{order.shipping_address.street_address|title}},
-                        {{order.shipping_address.apartment_address|title}}, {{order.shipping_address.zip}}
+                        {{order.shipping_address.street_address|title}},{{order.shipping_address.apartment_address|title}},{{order.shipping_address.zip}}
                     </li>
                     <li class="list-group-item">Phone Number : {{order.shipping_address.phone}}</li>
 
                     <li class="list-group-item">Order ID : {{order.ref_code}}</li>
-                    <li class="list-group-item">Time: {{order.ordered_date}} ({{order.ordered_date|timesince}} Ago)</li>
                     <li class="list-group-item">Total: &euro; {{order.get_total}}</li>
 
                 </ul>
@@ -47,7 +45,9 @@ Orders
 
 
         <!--Grid row-->
+        <div class="row wow fadeIn">
 
+<<<<<<< HEAD
         <table id="table_id" class="table">
             <thead>
                 <tr>
@@ -80,16 +80,25 @@ Orders
     <!--Grid column-->
     </div>
 
+=======
+            <!--Grid column-->
+            {% for item in order.items.all %}
+            <div class="col-lg-4 col-md-12 mb-4">
+>>>>>>> parent of 2932440 (orders)
+
+                <img src="{{item.item.image.url}}" class="img-fluid" alt="">
+                <p>{{item|title}}</p>
+
+            </div>
+            {% endfor %}
+
+            <!--Grid column-->
+
+            <!--Grid column-->
 
 
-
-    <!--Grid column-->
-
-    <!--Grid column-->
-
-
-    </div>
-    <!--Grid row-->
+        </div>
+        <!--Grid row-->
 
     </div>
 </main>

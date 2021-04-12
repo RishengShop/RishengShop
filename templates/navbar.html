@@ -164,19 +164,6 @@
             <span class="clearfix d-none d-sm-inline-block"> 购物车 </span>
           </a>
         </li>
-
-        {% if user.is_superuser %}
-
-        <li class="nav-item">
-          <a href="{% url 'orders:get_orders' %}" class="nav-link waves-effect">
-            <span class="badge red z-depth-1 mr-1"> </span>
-            <i class="fas fa-archive"></i>
-            <span class="clearfix d-none d-sm-inline-block"> Admin Orders </span>
-          </a>
-        </li>
-        {% endif %}
-
-
         <li class="nav-item">
           <a class="nav-link waves-effect" href="{% url 'account_logout' %}">
             <span class="clearfix d-none d-sm-inline-block"> 登出 </span>
