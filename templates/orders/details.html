@@ -54,10 +54,9 @@ Orders
                 <tr>
                     <th scope="col">#</th>
                     <th scope="col">Item</th>
-                    <th scope="col">Item ID</th>
-                    <th scope="col">Discount Price</th>
                     <th scope="col">Price</th>
-
+                    <th scope="col">Discount Price</th>
+                    <th scope="col">Quantity</th>
                 </tr>
             </thead>
             <tbody>
@@ -68,7 +67,7 @@ Orders
 
                     <td>{{item.item.itemid|title}}</td>
                     <td>{{item.item.discount_price}}</td>
-                    <td>{{item.item.price}}</td>
+                    <td>{{item.quantity}}</td>
 
                 </tr>
                 {% endfor %}
