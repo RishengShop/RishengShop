@@ -9,6 +9,11 @@ from django.contrib.auth.models import Group
 
 
 class RegistrationForm(UserCreationForm):
-    class Meta:
-        model = User
-        fields= ['username','first_name','last_name','email','password1','password2']
+    first_name = forms.CharField()
+    last_name = forms.CharField()
+    # email = forms.EmailField(required=False)
+    pass
+    # first
+    # class Meta:
+    #     model = User
+    #     fields= ['username','first_name','last_name','email','password1','password2']

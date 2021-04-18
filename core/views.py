@@ -126,8 +126,9 @@ class CheckoutView(View):
                             shipping_address.save()
 
                     else:
-                        messages.info(
-                            self.request, "Please fill in the required shipping address fields")
+                        messages.warning(
+                            self.request, "请填写收货信息")
+                        return redirect("/checkout/")
 
                 # use_default_billing = form.cleaned_data.get(
                 #     'use_default_billing')
@@ -192,7 +193,7 @@ class CheckoutView(View):
                 #         messages.info(
                 #             self.request, "Please fill in the required billing address fields")
 
-                payment_option = form.cleaned_data.get('payment_option')
+                # payment_option = form.cleaned_data.get('payment_option')
 
                 # if payment_option == 'S':
                 #     return redirect('core:payment', payment_option='stripe')
@@ -202,8 +203,7 @@ class CheckoutView(View):
                 #     messages.warning(
                 #         self.request, "Invalid payment option selected")
                 #     return redirect('core:checkout')
-               
-               
+
                 order_items = order.items.all()
                 order_items.update(ordered=True)
                 for item in order_items:

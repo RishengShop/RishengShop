@@ -13,9 +13,14 @@ def register_user(request):
         form=RegistrationForm(request.POST or None)
         if form.is_valid():
             form.save()
-            username=form.cleaned_data.get('username')
-            password=form.cleaned_data.get('password1')
+            username = form.cleaned_data.get('username')
+            password = form.cleaned_data.get('password1')
+            firstname = form.cleaned_data.get('first_name')
+            lastname = form.cleaned_data.get('last_name')
             user=authenticate(username=username,password=password)
+            user.first_name = firstname
+            user.last_name = lastname
+            user.save()
             login(request,user)
             messages.success(request,"Welcome {}".format(username))
             return HttpResponseRedirect(reverse('core:home'))
