@@ -32,10 +32,28 @@
 <script>
   $(document).ready(function () {
     $('#table_id').DataTable({
-      dom: 'Bfrtip',
+      "lengthMenu": [10, 25, 50, 75, 100],
+      dom: 'Blfrtip',
+
+      // "lengthMenu": [[10, 25, 50, -1], [10, 25, 50, "All"]],
       buttons: [
         'print'
       ]
+    });
+  });
+
+
+</script>
+
+<script>
+  $(document).ready(function () {
+    $('#mytable_id').DataTable({
+      dom: 'Blfrtip',
+      "lengthMenu": [[10, 25, 50, -1], ["All", 10, 25, 50]],
+
+      buttons: []
+
+
     });
   });
 
