@@ -24,7 +24,7 @@ def create_ref_code():
 
 def products(request):
     context = {
-        'items': Item.objects.all().reverse()
+        'items': Item.objects.all().order_by('id')
     }
     return render(request, "products.html", context)
 
@@ -367,6 +367,20 @@ class HomeView(ListView):
     model = Item
     paginate_by = 20
     template_name = "home.html"
+
+    # def get_context_data(self, **kwargs):
+    #     context = super(HomeView, self).get_context_data(**kwargs)
+    #     context['object_list'] = self.Item.objects.all().reverse()
+    #     return context
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        context['object_list'] = Item.objects.all().order_by('-id')
+
+        return context
+
+  
 
 
 class OrderSummaryView(LoginRequiredMixin, View):
