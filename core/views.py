@@ -7,7 +7,7 @@ from django.contrib import messages
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.mixins import LoginRequiredMixin
 from django.core.exceptions import ObjectDoesNotExist
-from django.shortcuts import redirect
+from django.shortcuts import redirect, HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.utils import timezone
 from django.views.generic import ListView, DetailView, View
@@ -370,15 +370,15 @@ class HomeView(ListView):
 
     # def get_context_data(self, **kwargs):
     #     context = super(HomeView, self).get_context_data(**kwargs)
-    #     context['object_list'] = self.Item.objects.all().reverse()
+    #     context['object_list'] = Item.objects.all().reverse()
     #     return context
 
-    def get_context_data(self, **kwargs):
-        context = super().get_context_data(**kwargs)
-
-        context['object_list'] = Item.objects.all().order_by('-id')
-
-        return context
+    # def get_context_data(self, **kwargs):
+    #     context = super().get_context_data(**kwargs)
+    #
+    #     context['object_list'] = Item.objects.all().order_by('-id')
+    #
+    #     return context
 
   
 
@@ -404,6 +404,7 @@ class ItemDetailView(DetailView):
 @login_required
 def add_to_cart(request, slug):
     item = get_object_or_404(Item, slug=slug)
+    page_from_request = request.META.get('HTTP_REFERER', '/')
     order_item, created = OrderItem.objects.get_or_create(
         item=item,
         user=request.user,
@@ -417,18 +418,21 @@ def add_to_cart(request, slug):
             order_item.quantity += 1
             order_item.save()
             messages.info(request, "This item quantity was updated.")
-            return redirect("core:order-summary")
+            # return redirect("core:order-summary")
+            return redirect(page_from_request)
         else:
             order.items.add(order_item)
             messages.info(request, "This item was added to your cart.")
-            return redirect("core:order-summary")
+            # return redirect("core:order-summary")
+            return redirect(page_from_request)
     else:
         ordered_date = timezone.now()
         order = Order.objects.create(
             user=request.user, ordered_date=ordered_date)
         order.items.add(order_item)
         messages.info(request, "This item was added to your cart.")
-        return redirect("core:order-summary")
+        # return redirect("core:order-summary")
+        return redirect(page_from_request)
 
 
 @login_required
