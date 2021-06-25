@@ -2,6 +2,8 @@
 
 {% block content %}
 <main>
+
+
     <div class="container">
 
         <!--Navbar-->
@@ -25,20 +27,21 @@
                 <!-- Links -->
                 <ul class="navbar-nav mr-auto">
 
-          {% for cat in cats %}
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'categories:category_list' cat.pk %}">{{cat.name|title}}</a>
-          </li>
+                    {% for cat in cats %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'categories:category_list' cat.pk %}">{{cat.name|title}}</a>
+                    </li>
 
-          {% endfor %}
+                    {% endfor %}
 
 
-        </ul>
+                </ul>
                 <!-- Links -->
 
                 <form class="form-inline" action="{% url 'core:search' %}" method="get">
                     <div class="md-form my-0">
-                        <input class="form-control mr-sm-2" type="text" name="q" placeholder="Search" aria-label="Search">
+                        <input class="form-control mr-sm-2" type="text" name="q" placeholder="Search"
+                            aria-label="Search">
                     </div>
                 </form>
             </div>
@@ -91,14 +94,15 @@
                                 </strong>
                             </h4>
                             <h4 class="font-weight-bold blue-text">
-                                <a href="{{ item.get_add_to_cart_url }}" class="btn btn-primary btn-md my-0 p">
+                                <a href="javascript:void(0);" url="{{ item.get_add_to_cart_url }}"
+                                    class="listend btn btn-primary btn-md my-0 p">
                                     加入购物车
                                     <i class="fas fa-shopping-cart ml-1"></i>
                                 </a>
-<!--                                <strong>-->
-<!--                                    <a href=" {{ item.get_absolute_url }}" >{{ item.title }}-->
-<!--                                    </a>-->
-<!--                                </strong>-->
+                                <!--                                <strong>-->
+                                <!--                                    <a href=" {{ item.get_absolute_url }}" >{{ item.title }}-->
+                                <!--                                    </a>-->
+                                <!--                                </strong>-->
                             </h4>
 
                         </div>
@@ -146,6 +150,25 @@
         {% endif %}
 
     </div>
+    <script src="https://cdn.bootcdn.net/ajax/libs/jquery/3.6.0/jquery.min.js"></script>
+    <script>
+
+        $(document).ready(function () {
+            $('.listend').on('click',function() {
+                var url = this.getAttribute("url");
+                $.get(url, (data, status)=>{
+                    if (data=="ok"){
+                        alert("添加成功!")
+                    }else{
+                        alert("添加失败!")
+                    }
+                })
+            })
+        });
+
+
+    </script>
 </main>
+
 
 {% endblock content %}

@@ -410,6 +410,7 @@ def add_to_cart(request, slug):
         user=request.user,
         ordered=False
     )
+
     order_qs = Order.objects.filter(user=request.user, ordered=False)
     if order_qs.exists():
         order = order_qs[0]
@@ -417,22 +418,28 @@ def add_to_cart(request, slug):
         if order.items.filter(item__slug=item.slug).exists():
             order_item.quantity += 1
             order_item.save()
-            messages.info(request, "This item quantity was updated.")
+            # messages.info(request, "This item quantity was updated.")
             # return redirect("core:order-summary")
-            return redirect(page_from_request)
+            # return redirect(page_from_request)
+            # return redirect(page_from_request + '#/add-to-cart/' + slug + '/')
+            return HttpResponse('ok')
         else:
             order.items.add(order_item)
-            messages.info(request, "This item was added to your cart.")
+            # messages.info(request, "This item was added to your cart.")
             # return redirect("core:order-summary")
-            return redirect(page_from_request)
+            # return redirect(page_from_request)
+            # return redirect(page_from_request + '#/add-to-cart/' + slug + '/')
+            return HttpResponse('ok')
     else:
         ordered_date = timezone.now()
         order = Order.objects.create(
             user=request.user, ordered_date=ordered_date)
         order.items.add(order_item)
-        messages.info(request, "This item was added to your cart.")
+        # messages.info(request, "This item was added to your cart.")
         # return redirect("core:order-summary")
-        return redirect(page_from_request)
+        # return redirect(page_from_request)
+        # return redirect(page_from_request + '#/add-to-cart/' + slug + '/')
+        return HttpResponse('ok')
 
 
 @login_required
