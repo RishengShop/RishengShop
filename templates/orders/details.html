@@ -21,7 +21,7 @@ Orders
 
                 <p>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Customer: {{order.user.first_name}} {{order.user.last_name}}</li>
+                    <li class="list-group-item">Customer: {{order.user.last_name}} {{order.user.first_name}}</li>
                     <li class="list-group-item">Address:
                         {{order.shipping_address.street_address|title}},
                         {{order.shipping_address.apartment_address|title}}, {{order.shipping_address.zip}}
