@@ -365,13 +365,14 @@ class PaymentView(View):
 
 class HomeView(ListView):
     model = Item
-    paginate_by = 20
+    # paginate_by = 20
     template_name = "home.html"
 
     def get_context_data(self, **kwargs):
         display_mode = 'P'
         context = super(HomeView, self).get_context_data(**kwargs)
-        context['object_list'] = Item.objects.filter(label=display_mode).order_by('?')[:20]
+        # context['object_list'] = Item.objects.filter(label=display_mode).order_by('?')[:20]
+        context['object_list'] = Item.objects.filter(label=display_mode).order_by('-id', 'title')[:60]
         return context
 
     # def get_context_data(self, **kwargs):
