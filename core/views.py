@@ -368,10 +368,11 @@ class HomeView(ListView):
     paginate_by = 20
     template_name = "home.html"
 
-    # def get_context_data(self, **kwargs):
-    #     context = super(HomeView, self).get_context_data(**kwargs)
-    #     context['object_list'] = Item.objects.all().reverse()
-    #     return context
+    def get_context_data(self, **kwargs):
+        display_mode = 'P'
+        context = super(HomeView, self).get_context_data(**kwargs)
+        context['object_list'] = Item.objects.filter(label=display_mode).order_by('?')[:20]
+        return context
 
     # def get_context_data(self, **kwargs):
     #     context = super().get_context_data(**kwargs)
@@ -575,7 +576,7 @@ class SearchResultsView(ListView):
     def get_queryset(self): # new
         query = self.request.GET.get('q')
         object_list = Item.objects.filter(
-            Q(title__icontains=query) | Q(description__icontains=query)
+            Q(title__icontains=query) | Q(description__icontains=query), Label='P'
         )
         return object_list
 
@@ -583,7 +584,7 @@ class SearchResultsView(ListView):
 def search_results(request):
     query = self.request.GET.get('q')
     object_list = Item.objects.filter(
-            Q(title__icontains=query) | Q(description__icontains=query)
+            Q(title__icontains=query) | Q(description__icontains=query), Label='P'
         )
 
     return render(request,'core/search.html')
