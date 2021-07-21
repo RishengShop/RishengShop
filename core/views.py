@@ -577,7 +577,7 @@ class SearchResultsView(ListView):
     def get_queryset(self): # new
         query = self.request.GET.get('q')
         object_list = Item.objects.filter(
-            Q(title__icontains=query) | Q(description__icontains=query), Label='P'
+            Q(title__icontains=query) | Q(description__icontains=query), label='P'
         )
         return object_list
 
