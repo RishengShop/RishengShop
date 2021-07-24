@@ -10,27 +10,32 @@ Orders
 <main class="mt-1 pt-1">
     <div class="container dark-grey-text ">
 
-        <button class="btn btn-info" onclick="window.print()">Print this page</button>
+
 
         <div class="row d-flex justify-content-center">
 
             <!--Grid column-->
             <div class="col-md-12 ">
 
-                <h4 class="my-4 h4">Order Details</h4>
+                <h4 class="my-4 h4">{{order.user.last_name}} {{order.user.first_name}}<button class="btn btn-info" onclick="window.print()">Print this page</button></h4>
 
                 <p>
                 <ul class="list-group list-group-flush">
-                    <li class="list-group-item">Customer: {{order.user.last_name}} {{order.user.first_name}}</li>
-                    <li class="list-group-item">Address:
+                    <li class="list-group-item">Phone Number : {{order.shipping_address.phone}}
+                        &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp &nbsp
+                        Address:
                         {{order.shipping_address.street_address|title}},
                         {{order.shipping_address.apartment_address|title}}, {{order.shipping_address.zip}}
-                    </li>
-                    <li class="list-group-item">Phone Number : {{order.shipping_address.phone}}</li>
 
-                    <li class="list-group-item">Order ID : {{order.ref_code}}</li>
-                    <li class="list-group-item">Time: {{order.ordered_date}} ({{order.ordered_date|timesince}} Ago)</li>
-                    <li class="list-group-item">Total: &euro; {{order.get_total}}</li>
+                    </li>
+<!--                    <li class="list-group-item">Address:-->
+<!--                        {{order.shipping_address.street_address|title}},-->
+<!--                        {{order.shipping_address.apartment_address|title}}, {{order.shipping_address.zip}}-->
+<!--                    </li>-->
+
+<!--                    <li class="list-group-item">Order ID : {{order.ref_code}}</li>-->
+                    <li class="list-group-item">Ordered Time: {{order.ordered_date}} ({{order.ordered_date|timesince}} Ago)</li>
+<!--                    <li class="list-group-item">Total: &euro; {{order.get_total}}</li>-->
 
                 </ul>
                 </p>
@@ -43,7 +48,7 @@ Orders
 
         <center>
 
-            <h4 class="my-4 h3">Ordered Items</h4>
+            <h4 class="my-4 h3">Total: &euro; {{order.get_total}}</h4>
         </center>
 
 
@@ -89,5 +94,6 @@ Orders
     <!--Grid row-->
 
     </div>
+
 </main>
 {% endblock content %}
