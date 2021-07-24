@@ -15,7 +15,7 @@ make_being_delivered.short_description = '更新订单为已配送'
 
 class ItemAdmin(admin.ModelAdmin):
     list_display = ['get_title',
-                    'get_id',
+                    'get_slug',
                     'get_price',
                     'get_discount_price',
                     'get_category_name'
@@ -27,9 +27,9 @@ class ItemAdmin(admin.ModelAdmin):
         return obj.title
     get_title.short_description = u'商品'
 
-    def get_id(self, obj):
-        return obj.id
-    get_id.short_description = u'编号'
+    def get_slug(self, obj):
+        return obj.slug
+    get_slug.short_description = u'编号'
 
     def get_price(self, obj):
         return obj.price
