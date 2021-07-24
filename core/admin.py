@@ -20,7 +20,7 @@ class ItemAdmin(admin.ModelAdmin):
                     'get_discount_price',
                     'get_category_name'
                     ]
-    list_filter = ('category_id',)
+    list_filter = ('label',)
     search_fields = ['title', 'id',]
 
     def get_title(self, obj):
