@@ -21,13 +21,23 @@ def category(request,pk):
 #     print(orderitem)
 #     return render(request, 'category/item.html', {'items': orderitem})
 def Top_Items(request):
+    display_mode = 'S'
+    items_S_id = Item.objects.filter(label=display_mode).order_by('-id', 'title')
+
     quantity_item_id = OrderItem.objects.filter(ordered=True).values('item_id').annotate(
         total_quantity=Count('quantity')).order_by('-total_quantity').values_list('item_id')[0:200]
     item_id_list = []
+    exclude_id_list = [_.id for _ in items_S_id]
+
     for i in quantity_item_id:
         item_id_list.append(i[0])
+    for i in exclude_id_list:
+        if i in item_id_list:
+            item_id_list.remove(i)
+
     objects = Item.objects.in_bulk(item_id_list)
     items = [objects[id] for id in item_id_list]
+
     # quantity_item_id2 = OrderItem.objects.filter(ordered=True).values('item_id','item__title').annotate(
     #     total_quantity=Count('quantity')).order_by('-total_quantity')[0:200]
     # f = open('11-09-2021.txt', 'w')
