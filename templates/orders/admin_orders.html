@@ -17,7 +17,7 @@ Orders
 
                         <th scope="col">姓名</th>
                         <th scope="col">日期</th>
-                        <th scope="col">订单编号</th>
+                        <th scope="col">订单金额</th>
 
 
                         <th scope="col">订单状态</th>
@@ -38,7 +38,8 @@ Orders
 <!--                        </td>-->
 
                         <td>{{order.ordered_date}}</td>
-                        <td>{{order.ref_code}}</td>
+                        <td> &euro; {{order.get_total}}</td>
+<!--                        <td>{{order.ref_code}}</td>-->
                         <td>
                             {% if order.being_delivered %}
                             Delivered
