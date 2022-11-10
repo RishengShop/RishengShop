@@ -115,6 +115,11 @@ class Item(models.Model):
             'slug': self.slug
         })
 
+    def get_add_to_cart_redirect_url(self):
+        return reverse("core:add-to-cart-redirect", kwargs={
+            'slug': self.slug
+        })
+
     def get_remove_from_cart_url(self):
         return reverse("core:remove-from-cart", kwargs={
             'slug': self.slug
@@ -193,7 +198,7 @@ class Order(models.Model):
 class Address(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL,
                              on_delete=models.CASCADE)
-    
+
     street_address = models.CharField(max_length=100)
     apartment_address = models.CharField(max_length=100)
     country = CountryField(multiple=False)

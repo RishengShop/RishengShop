@@ -2,8 +2,32 @@
 
 {% block content %}
 
+{% load static %}
 <main>
     <div class="container">
+
+        <div class="container">
+        <div id="carouselExampleFade" class="carousel slide carousel-fade" style="height:40vh;" data-ride="carousel">
+            <div class="carousel-inner">
+                <div class="carousel-item active" data-interval="5000">
+                    <img src="{% static 'img/news/background2.jpg'%}" class="img-thumbnail" alt="...">
+                </div>
+                <div class="carousel-item" data-interval="5000">
+                    <img src="{% static 'img/news/Camerino.jpg'%}" class="img-thumbnail" alt="...">
+                </div>
+                <div class="carousel-item" data-interval="5000">
+                    <img src="{% static 'img/news/Macerata.jpg'%}" class="img-thumbnail" alt="...">
+                </div>
+            </div>
+              <a class="carousel-control-prev" href="#carouselExampleFade" role="button" data-slide="prev">
+                <span class="carousel-control-prev-icon" style="height: 40vh;width:60px;" aria-hidden="true"></span>
+                <span class="sr-only">Previous</span>
+              </a>
+              <a class="carousel-control-next" href="#carouselExampleFade" role="button" data-slide="next">
+                <span class="carousel-control-next-icon" style="height: 40vh;width:60px;" aria-hidden="true"></span>
+                <span class="sr-only">Next</span>
+              </a>
+        </div>
 
         <!--Navbar-->
         {% include "snippets/nav.html" %}
@@ -52,6 +76,18 @@
                                     {{ item.price }}
                                     {% endif %}
                                 </strong>
+                            </h4>
+
+                            <h4 class="font-weight-bold blue-text">
+                                <a href="javascript:void(0);" url="{{ item.get_add_to_cart_url }}"
+                                    class="listend btn btn-primary btn-md my-0 p">
+                                    加入购物车
+                                    <i class="fas fa-shopping-cart ml-1"></i>
+                                </a>
+                                <!--                                <strong>-->
+                                <!--                                    <a href=" {{ item.get_absolute_url }}" >{{ item.title }}-->
+                                <!--                                    </a>-->
+                                <!--                                </strong>-->
                             </h4>
 
                         </div>
@@ -104,6 +140,26 @@
         {% endif %}
 
     </div>
+
+
+    <script type="text/javascript" src="{% static 'js/jquery.min.3.6.0.js' %}"></script>
+    <script>
+
+        $(document).ready(function () {
+            $('.listend').on('click',function() {
+                var url = this.getAttribute("url");
+                $.get(url, (data, status)=>{
+                    if (data=="ok"){
+                        alert("添加成功!")
+                    }else{
+                        alert("添加失败!")
+                    }
+                })
+            })
+        });
+
+
+    </script>
 </main>
 
 

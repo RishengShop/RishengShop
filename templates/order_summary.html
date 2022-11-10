@@ -27,7 +27,7 @@
                             <a href="{% url 'core:remove-single-item-from-cart' order_item.item.slug %}"><i
                                     class="fas fa-minus mr-2"></i></a>
                             {{ order_item.quantity }}
-                            <a href="{% url 'core:add-to-cart' order_item.item.slug %}"><i
+                            <a href="{% url 'core:add-to-cart-redirect' order_item.item.slug %}"><i
                                     class="fas fa-plus ml-2"></i></a>
                         </td>
                         <td>
